@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -10,9 +11,9 @@
 <div class="container">
     <div class="row">
         <div class="col-10 mx-auto py-5">
-        		<div class="alert alert-danger mb-5 small"><a href="https://echarts.apache.org/en/index.html" target="_blank" class="link-danger">Apache ECharts</a> ofrece mucho. Podría ser demasiado para lo que deben resolver. <strong>Recomiendo usar <a href="https://www.chartjs.org/" target="_blank" class="link-danger">Chart.js</a>, que ofrece lo justo y necesario.</strong> Para todo lo demás Bootstrap… y MasterCard.</div>
+                <div class="alert alert-danger mb-5 small"><a href="https://echarts.apache.org/en/index.html" target="_blank" class="link-danger">Apache ECharts</a> ofrece mucho. Podría ser demasiado para lo que deben resolver. <strong>Recomiendo usar <a href="https://www.chartjs.org/" target="_blank" class="link-danger">Chart.js</a>, que ofrece lo justo y necesario.</strong> Para todo lo demás Bootstrap… y MasterCard.</div>
             <!--voy a definir un select-->
-            <div class="input-group mb-3">
+            <div class="input-group input-group-sm mb-3">
               <span class="input-group-text">Ecuador</span>
               <select class="form-select" id="selector">
                 <option value="1" selected>Total de la Matrícula</option>
@@ -26,9 +27,9 @@
     </div>
 </div>
 
-<!--PRIMERO VOY POR PAPAPARSE, QUE ME BAJA Y AMONONA LOS CSV-->	  	
+<!--PRIMERO VOY POR PAPAPARSE, QUE ME BAJA Y AMONONA LOS CSV-->     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js" integrity="sha512-EbdJQSugx0nVWrtyK3JdQQ/03mS3Q1UiAhRtErbwl1YL/+e2hZdlIcSURxxh7WXHTzn83sjlh2rysACoJGfb6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<!--LUEGO VOY POR CHART.JS QUE ES MÁS SIMPLE-->	  	
+<!--LUEGO VOY POR CHART.JS QUE ES MÁS SIMPLE-->     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!--MANOS A LA OBRA-->
 <script>
@@ -49,8 +50,23 @@ Papa.parse("https://raw.githubusercontent.com/facoasecas/data_de_prueba/main/dat
                     label: "Cargando…",
                     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                     fill: true,
-                    borderColor: "rgba(141, 40, 51, 1)",
-                    backgroundColor: "rgba(141, 40, 51, .25)",
+                    borderColor: "rgba(228,26,28, 1)",
+                    backgroundColor: "rgba(228,26,28, .1)",
+                    borderWidth: 1,
+                },
+                {
+                    label: "Cargando…",
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    fill: true,
+                    borderColor: "rgba(55,126,184, 1)",
+                    backgroundColor: "rgba(55,126,184, .1)",
+                    borderWidth: 1,
+                },{
+                    label: "Cargando…",
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    fill: true,
+                    borderColor: "rgba(77,175,74, 1)",
+                    backgroundColor: "rgba(77,175,74, .1)",
                     borderWidth: 1,
                 },
             ],
@@ -61,12 +77,21 @@ Papa.parse("https://raw.githubusercontent.com/facoasecas/data_de_prueba/main/dat
         const selector = document.getElementById("selector");
         selector.onchange = function () {
             if (selector.value == 1) {
-                myChart.data.datasets[0].label = datos[0]['dato'];
+                myChart.data.datasets[0].label = datos[0]['pais'];
                 myChart.data.datasets[0].data = (datos[0]['numeros']).split(',').map(Number);
+                myChart.data.datasets[1].label = datos[2]['pais'];
+                myChart.data.datasets[1].data = (datos[2]['numeros']).split(',').map(Number);
+                myChart.data.datasets[2].label = datos[3]['pais'];
+                myChart.data.datasets[2].data = (datos[3]['numeros']).split(',').map(Number);
+
                 myChart.config.options.scales.y.beginAtZero = true;
             } else {
-                myChart.data.datasets[0].label = datos[6]['dato'];
+                myChart.data.datasets[0].label = datos[6]['pais'];
                 myChart.data.datasets[0].data = (datos[6]['numeros']).split(',').map(Number)
+                myChart.data.datasets[1].label = datos[8]['pais'];
+                myChart.data.datasets[1].data = (datos[8]['numeros']).split(',').map(Number)
+                myChart.data.datasets[2].label = datos[9]['pais'];
+                myChart.data.datasets[2].data = (datos[9]['numeros']).split(',').map(Number)                
                 myChart.config.options.scales.y.beginAtZero = false;
             }
             myChart.update();
